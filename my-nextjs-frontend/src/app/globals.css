@@ -1,24 +1,83 @@
 @import "tailwindcss";
 
-@theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #ffffff; /* Light mode background */
+  --foreground: #171717; /* Light mode text color */
+  --primary: #D84315;
+  --primary-light: #FF7D47;
+  --primary-dark: #A33112;
+  --secondary: #4CAF50;
+  --accent: #FFC107;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #121212; /* Dark mode background */
+    --foreground: #ededed; /* Dark mode text color */
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply bg-white dark:bg-neutral-900 text-neutral-900 dark:text-white font-sans;
+}
+
+@layer components {
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark transition duration-300 ease-in-out;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white px-6 py-3 rounded-md hover:bg-secondary-dark transition duration-300 ease-in-out;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-neutral-800 px-6 py-3 rounded-md hover:bg-accent-dark transition duration-300 ease-in-out;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary text-primary px-6 py-3 rounded-md hover:bg-primary hover:text-white transition duration-300 ease-in-out;
+  }
+  
+  /* Card Styles */
+  .product-card {
+    @apply bg-white rounded-lg shadow-soft overflow-hidden transition-all duration-300 hover:shadow-elevated;
+  }
+  
+  /* Decorative elements */
+  .border-pattern {
+    @apply border-2 border-primary/20 p-0.5 bg-gradient-to-r from-primary/5 to-accent/5;
+  }
+  
+  /* Heading styles */
+  .heading-fancy {
+    @apply font-heading text-2xl md:text-3xl lg:text-4xl text-primary relative;
+  }
+  
+  .heading-fancy::after {
+    content: "";
+    @apply absolute bottom-0 left-0 w-16 h-1 bg-accent rounded;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-white dark:bg-neutral-900;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-primary;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-primary-dark;
 }
